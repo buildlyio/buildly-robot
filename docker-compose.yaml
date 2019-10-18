@@ -349,8 +349,11 @@ services:
       OAUTH_TOKEN_URL: "http://bifrost:8080/oauth/token/"
 
   robot_tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: robot-tests-platform
-    image: your.docker-registry.com/humanitec/run-robot-tests:0.1.0
+    image: run-robot-tests-robot-tests
     entrypoint: bash /robot-tests-volume/src/robot-tests-run-script.sh docker
     volumes:
       - ./:/robot-tests-volume/src
