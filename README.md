@@ -1,18 +1,17 @@
-# Platform Robot Test Suite
-End to end test suite for all platform services including Midgard Angular and Midgard React
+# Buildly Robot Test Suite
+End to end test suite for the Buildly platform, including both the Buildly Core backend and Buildly UI.
 
 ## Test locally
-This setup can be used to test Bifrost and Midgard locally.
+This setup can be used to test Buildly Core and Buildly UI locally.
 For this you need to run all services from a docker compose file:
 
 `docker-compose -f docker-compose-localhost.yaml up`
 
 Once all services are started the following is available on your localhost:
 
-- `http://localhost:9000` [Midgard Angular Frontend](http://localhost:9000)
-- `http://localhost:9001` [Midgard React Frontend](http://localhost:9001)
-- `http://localhost:8090/docs` [Bifrost Swagger docs](http://localhost:8090/docs)
-- `http://localhost:8090/admin` [Bifrost Django Admin](http://localhost:8090/admin)
+- `http://localhost:9001` [Buildly UI React Frontend](http://localhost:9001)
+- `http://localhost:8090/docs` [Buildly Swagger docs](http://localhost:8090/docs)
+- `http://localhost:8090/admin` [Buildly Django Admin](http://localhost:8090/admin)
 
 ## Running the test suite
 The test suite can be executed by running

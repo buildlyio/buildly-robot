@@ -7,7 +7,7 @@ Library         Collections
 *** Keywords ***
 ##### AUTHENTIFICATION #####
 browser is opened to midgard angular url
-    Go To    ${MIDGARD_REACT_BASE_URL}
+    Go To    ${BUILDLY_UI_BASE_URL}
     ${status}=    Run Keyword And Ignore Error    Wait Until Page Contains    Login   10
     Log  ${status}
     Run Keyword If    'FAIL' in '''${status}'''    Reload Page
@@ -29,7 +29,7 @@ a new user is registered
     Click Button    Register
 
 the user can login
-    Go To    ${MIDGARD_REACT_BASE_URL}
+    Go To    ${BUILDLY_UI_BASE_URL}
     Wait Until Page Contains    Login   10
     Location Should Contain    login
     Input Text    //input[@placeholder='Enter username']    ${NEW_USER_NAME}
