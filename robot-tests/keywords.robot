@@ -51,7 +51,7 @@ I am authenticated api user
     &{params}=   Create Dictionary   grant_type=password     username=${API_USER_USERNAME}     password=${API_USER_PASSWORD}
     &{headers}=   Create Dictionary   Content-type=application/x-www-form-urlencoded
     ${auth}=  Create List  ${CLIENT_ID}  ${CLIENT_SECRET}
-    Create Session  kupfer  ${BIFROST_BASE_URL}  auth=${auth}
+    Create Session  kupfer  ${BUILDLY_BASE_URL}  auth=${auth}
     ${resp}=     Post Request  kupfer  /oauth/token/  data=${params}  headers=${headers}
     LOG  ${resp.json()}
     Set Global Variable  ${JWT}  ${resp.json()['access_token_jwt']}
@@ -68,13 +68,8 @@ Set environment to
     Set Global Variable    ${REGULAR_USER_PASSWORD}          ${REGULAR_USER_PASSWORD_${env}}
     Set Global Variable    ${API_USER_USERNAME}              ${API_USER_USERNAME_${env}}
     Set Global Variable    ${API_USER_PASSWORD}              ${API_USER_PASSWORD_${env}}
-    Set Global Variable    ${MIDGARD_ANGULAR_BASE_URL}       ${MIDGARD_ANGULAR_BASE_URL_${env}}
-    Set Global Variable    ${MIDGARD_REACT_BASE_URL}         ${MIDGARD_REACT_BASE_URL_${env}}
-    Set Global Variable    ${BIFROST_BASE_URL}               ${BIFROST_BASE_URL_${env}}
-    Set Global Variable    ${DOCUMENTS_API_BASE_URL}         ${DOCUMENTS_API_BASE_URL_${env}}
-    Set Global Variable    ${TIMETRACKING_API_BASE_URL}      ${TIMETRACKING_API_BASE_URL_${env}}
-    Set Global Variable    ${CRM_API_BASE_URL}               ${CRM_API_BASE_URL_${env}}
-    Set Global Variable    ${LOCATION_API_BASE_URL}          ${LOCATION_API_BASE_URL_${env}}
+    Set Global Variable    ${BUILDLY_UI_BASE_URL}            ${BUILDLY_UI_BASE_URL_${env}}
+    Set Global Variable    ${BUILDLY_BASE_URL}               ${BUILDLY_BASE_URL_${env}}
     Set Global Variable    ${PRODUCT_API_BASE_URL}           ${PRODUCT_API_BASE_URL_${env}}
 
 Generate Random Name
