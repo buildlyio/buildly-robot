@@ -12,17 +12,16 @@ services:
     restart: always
 
   buildly:
-    entrypoint: bash /scripts/bifrost_entrypoint.sh
+    entrypoint: bash /scripts/buildly_entrypoint.sh
     container_name: buildly
     image: localhost:5000/buildly
     volumes:
       - ./scripts:/scripts
       - static-content:/static
     ports:
-      - "8090:8080"
+      - "8080:8080"
     depends_on:
-      - postgres_bifrost
-      - rabbitmq_bifrost
+      - postgres_buildly
     environment:
       DJANGO_SETTINGS_MODULE: "buildly.settings.production"
       ALLOWED_HOSTS: "*"
@@ -84,9 +83,9 @@ services:
 
   products_service:
     container_name: productsservice
-    image: localhost:5000/products_service:${PRODUCTS_VERSION}
+    image: localhost:5000/products_service
     ports:
-      - "8085:8080"
+      - "8085:3000"
     depends_on:
       - postgres_products_service
     environment:
@@ -106,13 +105,10 @@ services:
         qhqvJu1hKPYn9HYd75c0gIDYHJ9lb7QwQvg44aO27104rDK0xSstzL0CAwEAAQ==
         -----END PUBLIC KEY-----
       SECRET_KEY: "oxcdb=mtcc7q1cym@oox(lyrz1ncz-(w+(#&u7l-&)7a8wvxyz"
-      AWS_ACCESS_KEY_ID:  {{ some-secret }}
-      AWS_SECRET_ACCESS_KEY:  {{ some-secret }}
-      AWS_STORAGE_BUCKET_NAME:  {{ some-secret }}
 
-  buildly-ui-react:
-    container_name: buildly-ui-react
-    image: https://hub.docker.com/r/buildly/buildly-ui
+  buildly-ui:
+    container_name: buildly-ui
+    image: localhost:5000/buildly-ui
     ports:
       - "9001:9000"
     depends_on:
@@ -122,8 +118,8 @@ services:
       CORS_ORIGIN_WHITELIST: "*"
       OAUTH_CLIENT_ID: "wkXLlC9h3k0jxIx7oLllxpFVU89Dxgi7O8FYZyfX"
       PRODUCTION: "true"
-      API_URL: "http://localhost:8090/"
-      OAUTH_TOKEN_URL: "http://localhost:8090/oauth/token/"
+      API_URL: "http://localhost:8080/"
+      OAUTH_TOKEN_URL: "http://localhost:8080/oauth/token/"
 
   robot_tests:
     build:
