@@ -1,56 +1,42 @@
 version: '3.1'
 services:
-  postgres_bifrost:
-    container_name: postgres_bifrost
+  postgres_buildly:
+    container_name: postgres_buildly
     image: postgres:9.6
     environment:
-      POSTGRES_DB: bifrost
+      POSTGRES_DB: buildly
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
     volumes:
       - /var/lib/postgresql/data/
-    ports:
-      - "5432:5432"
     restart: always
 
-  rabbitmq_bifrost:
-    image: rabbitmq:3-management
-    container_name: rabbitmq_bifrost
-    environment:
-      RABBITMQ_DEFAULT_USER: "admin"
-      RABBITMQ_DEFAULT_PASS: "admin"
-      RABBITMQ_DEFAULT_VHOST: "celery_vhost"
-    ports:
-      - "15672:15672"
-
-  bifrost:
-    entrypoint: bash /scripts/bifrost_entrypoint.sh
-    container_name: bifrost
-    image: your.docker-registry.com/humanitec/bifrost:${BIFROST_VERSION}
+  buildly:
+    entrypoint: bash /scripts/buildly_entrypoint.sh
+    container_name: buildly
+    image: buildly/buildly
     volumes:
       - ./scripts:/scripts
       - static-content:/static
     ports:
-      - "8090:8080"
+      - "8080:8080"
     depends_on:
-      - postgres_bifrost
-      - rabbitmq_bifrost
+      - postgres_buildly
     environment:
-      DJANGO_SETTINGS_MODULE: "bifrost-api.settings.production"
+      DJANGO_SETTINGS_MODULE: "buildly.settings.production"
       ALLOWED_HOSTS: "*"
       CORS_ORIGIN_WHITELIST: "*"
       DATABASE_ENGINE: "postgresql"
-      DATABASE_NAME: "bifrost"
+      DATABASE_NAME: "buildly"
       DATABASE_USER: "root"
       DATABASE_PASSWORD: "root"
-      DATABASE_HOST: "postgres_bifrost"
+      DATABASE_HOST: "postgres_buildly"
       DATABASE_PORT: "5432"
-      DEFAULT_OAUTH_DOMAINS: "toladata.com,humanitec.com"
       DEFAULT_ORG: "Default Organization"
-      DOCUMENTATION_URL: "https://humanitec.gitbook.io/frontend-guide/"
-      API_URL: "/api/docs"
-      JWT_ISSUER: "bifrost"
-      JWT_PRIVATE_KEY_RSA_BIFROST: |-
+      DOCUMENTATION_URL: "https://github.com/buildlyio/buildly-core/blob/master/README.md"
+      API_URL: "/api"
+      JWT_ISSUER: "buildly"
+      JWT_PRIVATE_KEY_RSA_BUILDLY: |-
         -----BEGIN RSA PRIVATE KEY-----
         MIIBOwIBAAJBALFc9NFZaOaSwUMPNektbtJqEjYZ6IRBqhqvJu1hKPYn9HYd75c0
         gIDYHJ9lb7QwQvg44aO27104rDK0xSstzL0CAwEAAQJAe5z5096oyeqGX6J+RGGx
@@ -60,95 +46,24 @@ services:
         Ulqap+MNh7hJZQIgZNaM+wqhlFtbx8aO2SrioJI4XqVHrjojpaSgOM3cdY0CIQDB
         Q6ckOaDV937acmWuiZhxuG2euNLwNbMldtCV5ADo/g==
         -----END RSA PRIVATE KEY-----
-      JWT_PUBLIC_KEY_RSA_BIFROST: |-
+      JWT_PUBLIC_KEY_RSA_BUILDLY: |-
         -----BEGIN PUBLIC KEY-----
         MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALFc9NFZaOaSwUMPNektbtJqEjYZ6IRB
         qhqvJu1hKPYn9HYd75c0gIDYHJ9lb7QwQvg44aO27104rDK0xSstzL0CAwEAAQ==
         -----END PUBLIC KEY-----
-      RABBIT_HOST: "rabbitmq_bifrost"
-      RABBIT_PORT: "5672"
-      RABBIT_USER: "admin"
-      RABBIT_PASS: "admin"
-      RABBIT_VHOST: "celery_vhost"
-      RABBIT_WALHALL_QUEUE: "bifrost_queue"
-      SOCIAL_AUTH_GITHUB_KEY: " {{ some-secret }} "
-      SOCIAL_AUTH_GITHUB_SECRET: " {{ some-secret }} "
       SOCIAL_AUTH_GITHUB_REDIRECT_URL: "https://localhost:8000/complete/github"
-      SOCIAL_AUTH_GOOGLE_OAUTH2_KEY: " {{ some-secret }} "
-      SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET: " {{ some-secret }} "
       SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URL: "https://localhost:8000/complete/google-oauth2"
-      SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS: "gmail.com"
       SOCIAL_AUTH_LOGIN_REDIRECT_URL: "http://localhost:8080/"
-      SOCIAL_AUTH_MICROSOFT_GRAPH_KEY: " {{ some-secret }} "
       SOCIAL_AUTH_MICROSOFT_GRAPH_REDIRECT_URL: "https://localhost:8000/complete/microsoft-graph"
-      SOCIAL_AUTH_MICROSOFT_GRAPH_SECRET: " {{ some-secret }} "
-      TOLA_TRACK_SYNC_ENABLED: "False"
+      ACCESS_TOKEN_EXPIRE_SECONDS: "86400"
       SECRET_KEY: "ek*)b=mtcc7q1cym@oox(lyrz1ncz-(w+(#&u7l-&)7a8wv#_k"
       OAUTH_CLIENT_ID: "wkXLlC9h3k0jxIx7oLllxpFVU89Dxgi7O8FYZyfX"
       OAUTH_CLIENT_SECRET: "KiKRft8MajLabQId7pjSsa3OfvJAXN9NENi0tVRTX3Vbthr6iClEDZZtbyGuD9M8UbKpK2E8R4xJYUolZxg1nVa1iZwhQPi5ionOKdpIs4de2bmUaZ0qWi4MdBmdwDvF"
-      SOCIAL_AUTH_CLIENT_ID: "vBn4KsOCthm7TWzMH0kVV0dXkUPJEtOQwaLu0eoC"
-      SOCIAL_AUTH_CLIENT_SECRET: "0aYDOHUNAxK4MjbnYOHhfrKx8Ezj3jd7aKq2C7yRDZ6FbAL4SgRFxY8N6GbB6IGyCgpT6pmQ5pEVJmH7mIEUJxyXKbta7ebxULLULjXwnJYGhUgT2hPyCfptkWFhsZVV"
-
-  postgres_crm_service:
-    container_name: postgres_crm_service
-    healthcheck:
-      test: "pg_isready -h localhost -p 5432 -q -U postgres"
-      interval: 3s
-      timeout: 5s
-      retries: 5
-    image: postgres:10.4-alpine
-    environment:
-      POSTGRES_DB: crm_service
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-    ports:
-      - "5433:5432"
-    volumes:
-      - /var/lib/postgresql/data/
-    restart: always
-
-  crm_service:
-    container_name: crmservice
-    image: your.docker-registry.com/kupfer-software/kupfer_contact_appointment_service:${CRM_VERSION}
-    ports:
-      - "8082:8080"
-    depends_on:
-      - postgres_crm_service
-    environment:
-      ALLOWED_HOSTS: "*"
-      CORS_ORIGIN_WHITELIST: "*"
-      DATABASE_ENGINE: "postgresql"
-      DATABASE_NAME: "crm_service"
-      DATABASE_USER: "root"
-      DATABASE_PASSWORD: "root"
-      DATABASE_HOST: "postgres_crm_service"
-      DATABASE_PORT: "5432"
-      DEBUG: "True"
-      DJANGO_SETTINGS_MODULE: "crm_service.settings.production"
-      STATIC_ROOT: /static/
-      JWT_PRIVATE_KEY_RSA_CRMSERVICE: |-
-        -----BEGIN RSA PRIVATE KEY-----
-        MIIBOgIBAAJBAMtUe741n497BS4syFvey617qA+b4DQSyHj4xE0ZH5qRuk/A42i5
-        zUJidSkFs1Wvq9ShOamST1vrmHriBrYYu7MCAwEAAQJBAI2hUXiSvYwh8t/RDdcA
-        f/tdkRkeSLO9CatKDOJvR5ZQAL5+7iNHTMGOC2FCU3WKSdlEo/xW3kD6omYbIWPk
-        hXECIQD58w4Zl3FSaoWBhBmmyJF08cOQP2Z8amewd70LV0LNlQIhANBAhrTxnDG2
-        KprAffkxjcrV/6ZWC5kGqckTNUUhf0InAiBbosNpmH8gYxM9L4wj/GZvhG9ZRBUz
-        yeLn7I4vSTehnQIgJEaZMHvF0YMB+OL/DqFrKaINXlQuwQFAIh6OcPRczpECICpM
-        q/qlwzGMpOD6blcWDUqgS6HXpS73To/F8RE56FP+
-        -----END RSA PRIVATE KEY-----
-      JWT_PUBLIC_KEY_RSA_CRMSERVICE: |-
-        -----BEGIN PUBLIC KEY-----
-        MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMtUe741n497BS4syFvey617qA+b4DQS
-        yHj4xE0ZH5qRuk/A42i5zUJidSkFs1Wvq9ShOamST1vrmHriBrYYu7MCAwEAAQ==
-        -----END PUBLIC KEY-----
-      JWT_PUBLIC_KEY_RSA_BIFROST: |-
-        -----BEGIN PUBLIC KEY-----
-        MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALFc9NFZaOaSwUMPNektbtJqEjYZ6IRB
-        qhqvJu1hKPYn9HYd75c0gIDYHJ9lb7QwQvg44aO27104rDK0xSstzL0CAwEAAQ==
-        -----END PUBLIC KEY-----
-      JWT_ISSUER: "crmservice"
-      SEARCH_SERVICE_URL: "http://searchservice.local:8001"
-      SECRET_KEY: "abcdb=mtcc7q1cym@oox(lyrz1ncz-(w+(#&u7l-&)7a8wvxyz"
+      USE_PASSWORD_USER_ATTRIBUTE_SIMILARITY_VALIDATOR: "True"
+      USE_PASSWORD_MINIMUM_LENGTH_VALIDATOR: "True"
+      PASSWORD_MINIMUM_LENGTH: "6"
+      USE_PASSWORD_COMMON_VALIDATOR: "True"
+      USE_PASSWORD_NUMERIC_VALIDATOR: "True"
 
   postgres_location_service:
     container_name: postgres_location_service
@@ -168,7 +83,7 @@ services:
 
   location_service:
     container_name: locationservice
-    image: your.docker-registry.com/humanitec/location_service:${LOCATION_VERSION}
+    image: msradam/location_service
     ports:
       - "8083:8080"
     depends_on:
@@ -183,7 +98,7 @@ services:
       DATABASE_HOST: "postgres_location_service"
       DATABASE_PORT: "5432"
       DEBUG: "True"
-      JWT_PUBLIC_KEY_RSA_BIFROST: |-
+      JWT_PUBLIC_KEY_RSA_BUILDLY: |-
         -----BEGIN PUBLIC KEY-----
         MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALFc9NFZaOaSwUMPNektbtJqEjYZ6IRB
         qhqvJu1hKPYn9HYd75c0gIDYHJ9lb7QwQvg44aO27104rDK0xSstzL0CAwEAAQ==
@@ -191,50 +106,6 @@ services:
       SECRET_KEY: "ab-db=mtcc7q1cym@oox(lyrz1ncz-(w+(#&u7l-&)7a8wvxyz"
       STATIC_ROOT: /static/
 
-  postgres_time_tracking_service:
-    container_name: postgres_time_tracking_service
-    healthcheck:
-      test: "pg_isready -h localhost -p 5432 -q -U postgres"
-      interval: 3s
-      timeout: 5s
-      retries: 5
-    image: postgres:10.4
-    environment:
-      POSTGRES_DB: time_tracking_service
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-    volumes:
-      - /var/lib/postgresql/data/
-    restart: always
-
-  time_tracking_service:
-    container_name: timetrackingservice
-    image: your.docker-registry.com/kupfer-software/kupfer_timetracking_service:${TIMETRACKING_VERSION}
-    ports:
-      - "8084:8080"
-    depends_on:
-      - postgres_time_tracking_service
-    environment:
-      ALLOWED_HOSTS: "*"
-      CORS_ORIGIN_WHITELIST: "*"
-      DATABASE_ENGINE: "postgresql"
-      DATABASE_NAME: "time_tracking_service"
-      DATABASE_USER: "root"
-      DATABASE_PASSWORD: "root"
-      DATABASE_HOST: "postgres_time_tracking_service"
-      DATABASE_PORT: "5432"
-      DEBUG: "True"
-      JWT_PUBLIC_KEY_RSA_BIFROST: |-
-        -----BEGIN PUBLIC KEY-----
-        MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALFc9NFZaOaSwUMPNektbtJqEjYZ6IRB
-        qhqvJu1hKPYn9HYd75c0gIDYHJ9lb7QwQvg44aO27104rDK0xSstzL0CAwEAAQ==
-        -----END PUBLIC KEY-----
-      JWT_PUBLIC_KEY_RSA_COLLECTIONSERVICE: |-
-        -----BEGIN PUBLIC KEY-----
-        MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJK5QEbwUn9XG1Bxzd3FuOMwuMMvNHEV
-        gupZjv0QYh0ZK5LuZkekPEMTd0T3xj1+b0h7Gc+WKcn8Xw3oAp2266MCAwEAAQ==
-        -----END PUBLIC KEY-----
-      SECRET_KEY: "ad-bd=mtcc7q1cym@oox(lyrz1ncz-(w+(#&u7l-&)7a8wvxyz"
 
   postgres_products_service:
     container_name: postgres_products_service
@@ -254,7 +125,7 @@ services:
 
   products_service:
     container_name: productsservice
-    image: your.docker-registry.com/humanitec/products_service:${PRODUCTS_VERSION}
+    image: msradam/products_service
     ports:
       - "8085:8080"
     depends_on:
@@ -270,83 +141,27 @@ services:
       DATABASE_PORT: "5432"
       DEBUG: "False"
       DJANGO_SETTINGS_MODULE: "products_service.settings.production"
-      JWT_PUBLIC_KEY_RSA_BIFROST: |-
+      JWT_PUBLIC_KEY_RSA_BUILDLY: |-
         -----BEGIN PUBLIC KEY-----
         MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALFc9NFZaOaSwUMPNektbtJqEjYZ6IRB
         qhqvJu1hKPYn9HYd75c0gIDYHJ9lb7QwQvg44aO27104rDK0xSstzL0CAwEAAQ==
         -----END PUBLIC KEY-----
       SECRET_KEY: "oxcdb=mtcc7q1cym@oox(lyrz1ncz-(w+(#&u7l-&)7a8wvxyz"
-      AWS_ACCESS_KEY_ID:  {{ some-secret }}
-      AWS_SECRET_ACCESS_KEY:  {{ some-secret }}
-      AWS_STORAGE_BUCKET_NAME:  {{ some-secret }}
 
-  postgres_documents_service:
-    container_name: postgres_documents_service
-    image: postgres:9.6
-    environment:
-      POSTGRES_DB: documents_service
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-    volumes:
-      - /var/lib/postgresql/data/
-    restart: always
-
-  documents_service:
-    container_name: documentsservice
-    image: your.docker-registry.com/kupfer-software/kupfer_document_service:${DOCUMENTS_VERSION}
-    ports:
-      - "8006:8080"
-    depends_on:
-      - postgres_documents_service
-    environment:
-      ALLOWED_HOSTS: "*"
-      AWS_ACCESS_KEY_ID:  {{ some-secret }}
-      AWS_SECRET_ACCESS_KEY:  {{ some-secret }}
-      AWS_STORAGE_BUCKET_NAME:  {{ some-secret }}
-      CORS_ORIGIN_WHITELIST: "*"
-      DATABASE_ENGINE: "postgresql"
-      DATABASE_NAME: "documents_service"
-      DATABASE_USER: "root"
-      DATABASE_PASSWORD: "root"
-      DATABASE_HOST: "postgres_documents_service"
-      DATABASE_PORT: "5432"
-      DEBUG: "True"
-      JWT_PUBLIC_KEY_RSA_BIFROST: |-
-        -----BEGIN PUBLIC KEY-----
-        MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALFc9NFZaOaSwUMPNektbtJqEjYZ6IRB
-        qhqvJu1hKPYn9HYd75c0gIDYHJ9lb7QwQvg44aO27104rDK0xSstzL0CAwEAAQ==
-        -----END PUBLIC KEY-----
-      SECRET_KEY: "axcdb=mtcc7q1cym@oox(lyrz1ncz-(w+(#&u7l-&)7a8wvxyz"
-
-  midgard-angular:
-    container_name: midgard-angular
-    image: your.docker-registry.com/humanitec/midgard-angular:${MIDGARD_ANGULAR_VERSION}
-    ports:
-      - "9000:9000"
-    depends_on:
-      - bifrost
-    environment:
-      ALLOWED_HOSTS: "*"
-      CORS_ORIGIN_WHITELIST: "*"
-      OAUTH_CLIENT_ID: "wkXLlC9h3k0jxIx7oLllxpFVU89Dxgi7O8FYZyfX"
-      PRODUCTION: "true"
-      API_URL: "http://bifrost:8080/"
-      OAUTH_TOKEN_URL: "http://bifrost:8080/oauth/token/"
-
-  midgard-react:
-    container_name: midgard-react
-    image: your.docker-registry.com/humanitec/midgard-react:${MIDGARD_REACT_VERSION}
+  buildly-ui:
+    container_name: buildly-ui
+    image: buildly/buildly-ui
     ports:
       - "9001:9000"
     depends_on:
-      - bifrost
+      - buildly
     environment:
       ALLOWED_HOSTS: "*"
       CORS_ORIGIN_WHITELIST: "*"
       OAUTH_CLIENT_ID: "wkXLlC9h3k0jxIx7oLllxpFVU89Dxgi7O8FYZyfX"
       PRODUCTION: "true"
-      API_URL: "http://bifrost:8080/"
-      OAUTH_TOKEN_URL: "http://bifrost:8080/oauth/token/"
+      API_URL: "http://localhost:8080/"
+      OAUTH_TOKEN_URL: "http://localhost:8080/oauth/token/"
 
   robot_tests:
     build:

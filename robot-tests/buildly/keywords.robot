@@ -15,7 +15,7 @@ list of all users contains test user
     ${resp-string}=    Convert To String    ${RESPONSE.json()}
     Should Contain    ${resp-string}    admin
 
-Request GET /Groups from Bifrost
+Request GET /Groups from Buildly
     Make Get Request    ${BUILDLY_BASE_URL}    /coregroups/
     LOG  ${RESPONSE.content}
 

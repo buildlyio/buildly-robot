@@ -6,7 +6,7 @@ Library         Collections
 
 *** Keywords ***
 ##### AUTHENTIFICATION #####
-browser is opened to midgard angular url
+browser is opened to Buildly-UI URL
     Go To    ${BUILDLY_UI_BASE_URL}
     ${status}=    Run Keyword And Ignore Error    Wait Until Page Contains    Login   10
     Log  ${status}
