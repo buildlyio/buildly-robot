@@ -71,6 +71,7 @@ Set environment to
     Set Global Variable    ${BUILDLY_UI_BASE_URL}            ${BUILDLY_UI_BASE_URL_${env}}
     Set Global Variable    ${BUILDLY_BASE_URL}               ${BUILDLY_BASE_URL_${env}}
     Set Global Variable    ${PRODUCT_API_BASE_URL}           ${PRODUCT_API_BASE_URL_${env}}
+    Set Global Variable    ${LOCATION_API_BASE_URL}          ${LOCATION_API_BASE_URL_${env}}
 
 Generate Random Name
     ${name}=  Generate Random String  8  	[LOWER]

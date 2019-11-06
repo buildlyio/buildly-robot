@@ -9,6 +9,6 @@ Documentation   Application Login
 
 *** Test Cases ***
 Register new user
-    GIVEN browser is opened to midgard angular url
+    GIVEN browser is opened to Buildly-UI url
     WHEN a new user is registered
     THEN the user can login
