@@ -5,7 +5,7 @@ End to end test suite for the Buildly platform, including both the Buildly Core 
 This setup can be used to test Buildly Core and Buildly UI locally.
 For this you need to run all services from a docker compose file:
 
-`docker-compose -f docker-compose-localhost.yaml up`
+`docker-compose -f docker-compose.yaml up`
 
 Once all services are started the following is available on your localhost:
 
