@@ -10,8 +10,8 @@ For this you need to run all services from a docker compose file:
 Once all services are started the following is available on your localhost:
 
 - `http://localhost:9001` [Buildly UI React Frontend](http://localhost:9001)
-- `http://localhost:8090/docs` [Buildly Swagger docs](http://localhost:8090/docs)
-- `http://localhost:8090/admin` [Buildly Django Admin](http://localhost:8090/admin)
+- `http://localhost:8080/docs` [Buildly Swagger docs](http://localhost:8080/docs)
+- `http://localhost:8080/admin` [Buildly Django Admin](http://localhost:8080/admin)
 
 ## Running the test suite
 The test suite can be executed by running
