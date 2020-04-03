@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2b2 (Python 3.8.2 on darwin)" generated="20200402 22:45:13.916" rpa="false">
+<suite id="s1" name="Management" source="/Users/jiseonyu/buildly/buildly-robot/robot-tests/buildly-react-template/management.robot">
+<kw name="Init" library="keywords" type="setup">
+<kw name="Set environment" library="keywords">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${env}'!=''</arg>
+<arg>Set environment to</arg>
+<arg>${env}</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:14.101" endtime="20200402 22:45:14.101"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:14.100" endtime="20200402 22:45:14.101"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${HEADLESS_BROWSER_ENABLED}</arg>
+<arg>Start Headless Browser</arg>
+<arg>ELSE</arg>
+<arg>Start Browser</arg>
+</arguments>
+<kw name="Start Headless Browser" library="keywords">
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+</arguments>
+<assign>
+<var>${chrome_options}</var>
+</assign>
+<msg timestamp="20200402 22:45:14.102" level="INFO">${chrome_options} = &lt;selenium.webdriver.chrome.options.Options object at 0x10e1494f0&gt;</msg>
+<status status="PASS" starttime="20200402 22:45:14.101" endtime="20200402 22:45:14.102"></status>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<arguments>
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>headless</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:14.102" endtime="20200402 22:45:14.102"></status>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<arguments>
+<arg>${chrome_options}</arg>
+<arg>add_argument</arg>
+<arg>disable-gpu</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:14.102" endtime="20200402 22:45:14.102"></status>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<arguments>
+<arg>${chrome_options}</arg>
+<arg>to_capabilities</arg>
+</arguments>
+<assign>
+<var>${options}</var>
+</assign>
+<msg timestamp="20200402 22:45:14.102" level="INFO">${options} = {'browserName': 'chrome', 'version': '', 'platform': 'ANY', 'goog:chromeOptions': {'extensions': [], 'args': ['headless', 'disable-gpu']}}</msg>
+<status status="PASS" starttime="20200402 22:45:14.102" endtime="20200402 22:45:14.102"></status>
+</kw>
+<kw name="Set Chrome Options" library="keywords">
+<doc>Set Chrome options for headless mode</doc>
+<assign>
+<var>${chrome_options}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+</arguments>
+<assign>
+<var>${options}</var>
+</assign>
+<msg timestamp="20200402 22:45:14.103" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x10e1550a0&gt;</msg>
+<status status="PASS" starttime="20200402 22:45:14.103" endtime="20200402 22:45:14.103"></status>
+</kw>
+<kw name="${option} IN [ @{chrome_arguments} ]" type="for">
+<kw name="${option} = --disable-infobars" type="foritem">
+<kw name="Call Method" library="BuiltIn">
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<arguments>
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>${option}</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:14.103" endtime="20200402 22:45:14.103"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:14.103" endtime="20200402 22:45:14.103"></status>
+</kw>
+<kw name="${option} = --headless" type="foritem">
+<kw name="Call Method" library="BuiltIn">
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<arguments>
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>${option}</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:14.103" endtime="20200402 22:45:14.104"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:14.103" endtime="20200402 22:45:14.104"></status>
+</kw>
+<kw name="${option} = --disable-gpu" type="foritem">
+<kw name="Call Method" library="BuiltIn">
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<arguments>
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>${option}</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:14.104" endtime="20200402 22:45:14.104"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:14.104" endtime="20200402 22:45:14.104"></status>
+</kw>
+<kw name="${option} = --no-sandbox" type="foritem">
+<kw name="Call Method" library="BuiltIn">
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<arguments>
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>${option}</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:14.104" endtime="20200402 22:45:14.104"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:14.104" endtime="20200402 22:45:14.104"></status>
+</kw>
+<kw name="${option} = --window-size=1920,1080" type="foritem">
+<kw name="Call Method" library="BuiltIn">
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<arguments>
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>${option}</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:14.105" endtime="20200402 22:45:14.105"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:14.104" endtime="20200402 22:45:14.105"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:14.103" endtime="20200402 22:45:14.105"></status>
+</kw>
+<msg timestamp="20200402 22:45:14.105" level="INFO">${chrome_options} = &lt;selenium.webdriver.chrome.options.Options object at 0x10e1550a0&gt;</msg>
+<status status="PASS" starttime="20200402 22:45:14.103" endtime="20200402 22:45:14.105"></status>
+</kw>
+<kw name="Run Process" library="Process">
+<doc>Runs a process and waits for it to complete.</doc>
+<arguments>
+<arg>free -h</arg>
+<arg>shell=True</arg>
+</arguments>
+<assign>
+<var>${mem}</var>
+</assign>
+<msg timestamp="20200402 22:45:14.105" level="INFO">Starting process:
+free -h</msg>
+<msg timestamp="20200402 22:45:14.108" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200402 22:45:14.110" level="INFO">Process completed.</msg>
+<msg timestamp="20200402 22:45:14.110" level="INFO">${mem} = &lt;result object with rc 127&gt;</msg>
+<status status="PASS" starttime="20200402 22:45:14.105" endtime="20200402 22:45:14.110"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${mem.stdout}</arg>
+</arguments>
+<msg timestamp="20200402 22:45:14.111" level="INFO"></msg>
+<status status="PASS" starttime="20200402 22:45:14.111" endtime="20200402 22:45:14.111"></status>
+</kw>
+<kw name="Create Webdriver" library="SeleniumLibrary">
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<arguments>
+<arg>Chrome</arg>
+<arg>chrome_options=${chrome_options}</arg>
+</arguments>
+<msg timestamp="20200402 22:45:14.111" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<status status="PASS" starttime="20200402 22:45:14.111" endtime="20200402 22:45:15.346"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:14.101" endtime="20200402 22:45:15.346"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:14.101" endtime="20200402 22:45:15.347"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:14.100" endtime="20200402 22:45:15.347"></status>
+</kw>
+<test id="s1-t1" name="Verify the user management section">
+<kw name="GIVEN browser is opened to Buildly-React-Template url" library="keywords">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${BUILDLY_REACT_TEMPLATE_BASE_URL}</arg>
+</arguments>
+<msg timestamp="20200402 22:45:15.349" level="INFO">Opening url 'http://localhost:9001'</msg>
+<status status="PASS" starttime="20200402 22:45:15.348" endtime="20200402 22:45:15.716"></status>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<arguments>
+<arg>Wait Until Page Contains</arg>
+<arg>Login</arg>
+<arg>10</arg>
+</arguments>
+<assign>
+<var>${status}</var>
+</assign>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on the current page.</doc>
+<arguments>
+<arg>Login</arg>
+<arg>10</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:15.717" endtime="20200402 22:45:15.726"></status>
+</kw>
+<msg timestamp="20200402 22:45:15.726" level="INFO">${status} = ('PASS', None)</msg>
+<status status="PASS" starttime="20200402 22:45:15.717" endtime="20200402 22:45:15.726"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${status}</arg>
+</arguments>
+<msg timestamp="20200402 22:45:15.727" level="INFO">('PASS', None)</msg>
+<status status="PASS" starttime="20200402 22:45:15.727" endtime="20200402 22:45:15.727"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'FAIL' in '''${status}'''</arg>
+<arg>Reload Page</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:15.727" endtime="20200402 22:45:15.727"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'FAIL' in '''${status}'''</arg>
+<arg>Wait Until Page Contains</arg>
+<arg>Login</arg>
+<arg>10</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:15.727" endtime="20200402 22:45:15.728"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:15.348" endtime="20200402 22:45:15.728"></status>
+</kw>
+<kw name="WHEN a new user can login as an admin" library="keywords">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${BUILDLY_REACT_TEMPLATE_BASE_URL}</arg>
+</arguments>
+<msg timestamp="20200402 22:45:15.728" level="INFO">Opening url 'http://localhost:9001'</msg>
+<status status="PASS" starttime="20200402 22:45:15.728" endtime="20200402 22:45:15.812"></status>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on the current page.</doc>
+<arguments>
+<arg>Login</arg>
+<arg>10</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:15.812" endtime="20200402 22:45:15.817"></status>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<doc>Verifies that the current URL contains ``expected``.</doc>
+<arguments>
+<arg>login</arg>
+</arguments>
+<msg timestamp="20200402 22:45:15.820" level="INFO">Current location contains 'login'.</msg>
+<status status="PASS" starttime="20200402 22:45:15.817" endtime="20200402 22:45:15.820"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${NEW_USER_NAME}</arg>
+<arg>admin</arg>
+</arguments>
+<msg timestamp="20200402 22:45:15.821" level="INFO">${NEW_USER_NAME} = admin</msg>
+<status status="PASS" starttime="20200402 22:45:15.820" endtime="20200402 22:45:15.821"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${NEW_USER_PASSWORD}</arg>
+<arg>admin</arg>
+</arguments>
+<msg timestamp="20200402 22:45:15.822" level="INFO">${NEW_USER_PASSWORD} = admin</msg>
+<status status="PASS" starttime="20200402 22:45:15.821" endtime="20200402 22:45:15.822"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>//input[@placeholder='Enter username']</arg>
+<arg>${NEW_USER_NAME}</arg>
+</arguments>
+<msg timestamp="20200402 22:45:15.822" level="INFO">Typing text 'admin' into text field '//input[@placeholder='Enter username']'.</msg>
+<status status="PASS" starttime="20200402 22:45:15.822" endtime="20200402 22:45:15.920"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>//input[@placeholder='Enter password']</arg>
+<arg>${NEW_USER_PASSWORD}</arg>
+</arguments>
+<msg timestamp="20200402 22:45:15.920" level="INFO">Typing text 'admin' into text field '//input[@placeholder='Enter password']'.</msg>
+<status status="PASS" starttime="20200402 22:45:15.920" endtime="20200402 22:45:15.980"></status>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>Login</arg>
+</arguments>
+<msg timestamp="20200402 22:45:15.980" level="INFO">Clicking button 'Login'.</msg>
+<status status="PASS" starttime="20200402 22:45:15.980" endtime="20200402 22:45:16.026"></status>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on the current page.</doc>
+<arguments>
+<arg>My App</arg>
+<arg>10</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:16.027" endtime="20200402 22:45:16.033"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:15.728" endtime="20200402 22:45:16.033"></status>
+</kw>
+<kw name="THEN browser is opened to User management page" library="keywords">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${BUILDLY_REACT_TEMPLATE_BASE_URL}/app/profile/users/current-users</arg>
+</arguments>
+<msg timestamp="20200402 22:45:16.034" level="INFO">Opening url 'http://localhost:9001/app/profile/users/current-users'</msg>
+<status status="PASS" starttime="20200402 22:45:16.034" endtime="20200402 22:45:16.073"></status>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on the current page.</doc>
+<arguments>
+<arg>My App</arg>
+<arg>10</arg>
+</arguments>
+<status status="PASS" starttime="20200402 22:45:16.073" endtime="20200402 22:45:16.080"></status>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>xpath=.//button[@id='current-users']</arg>
+</arguments>
+<msg timestamp="20200402 22:45:16.080" level="INFO">Clicking button 'xpath=.//button[@id='current-users']'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200402 22:45:16.709" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-15.png"&gt;&lt;img src="selenium-screenshot-15.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200402 22:45:16.092" endtime="20200402 22:45:16.710"></status>
+</kw>
+<msg timestamp="20200402 22:45:16.711" level="FAIL">Button with locator 'xpath=.//button[@id='current-users']' not found.</msg>
+<status status="FAIL" starttime="20200402 22:45:16.080" endtime="20200402 22:45:16.711"></status>
+</kw>
+<status status="FAIL" starttime="20200402 22:45:16.034" endtime="20200402 22:45:16.711"></status>
+</kw>
+<status status="FAIL" starttime="20200402 22:45:15.347" endtime="20200402 22:45:16.711" critical="yes">Button with locator 'xpath=.//button[@id='current-users']' not found.</status>
+</test>
+<kw name="Teardown Actions" library="keywords" type="teardown">
+<kw name="Get Selenium Browser Log" library="get_selenium_browser_log">
+<assign>
+<var>@{browser_logs}</var>
+</assign>
+<msg timestamp="20200402 22:45:16.714" level="INFO">@{browser_logs} = [ {'level': 'WARNING', 'message': 'http://localhost:9001/bundle.js 85:86422 "i18next::backendConnector: No backend was added via i18next.use. Will not load resources."', 'source': 'console-api', 'time...</msg>
+<status status="PASS" starttime="20200402 22:45:16.712" endtime="20200402 22:45:16.714"></status>
+</kw>
+<kw name="${browser_log} IN [ @{browser_logs} ]" type="for">
+<kw name="${browser_log} = {'level': 'WARNING', 'message': 'http://localhost:9001/bundle.js 85:86422 &quot;i18next::backendConnector: No backend was added via i18next.use. Will not load resources.&quot;', 'source': 'console-api', 'timest..." type="foritem">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'SEVERE' in '''${browser_log}'''</arg>
+<arg>Log</arg>
+<arg>${browser_log}</arg>
+<arg>level=WARN</arg>
+<arg>ELSE</arg>
+<arg>Log</arg>
+<arg>${browser_log}</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${browser_log}</arg>
+</arguments>
+<msg timestamp="20200402 22:45:16.714" level="INFO">{'level': 'WARNING', 'message': 'http://localhost:9001/bundle.js 85:86422 "i18next::backendConnector: No backend was added via i18next.use. Will not load resources."', 'source': 'console-api', 'timestamp': 1585881915712}</msg>
+<status status="PASS" starttime="20200402 22:45:16.714" endtime="20200402 22:45:16.714"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:16.714" endtime="20200402 22:45:16.714"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:16.714" endtime="20200402 22:45:16.714"></status>
+</kw>
+<kw name="${browser_log} = {'level': 'WARNING', 'message': 'http://localhost:9001/bundle.js 85:86422 &quot;i18next::backendConnector: No backend was added via i18next.use. Will not load resources.&quot;', 'source': 'console-api', 'timest..." type="foritem">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'SEVERE' in '''${browser_log}'''</arg>
+<arg>Log</arg>
+<arg>${browser_log}</arg>
+<arg>level=WARN</arg>
+<arg>ELSE</arg>
+<arg>Log</arg>
+<arg>${browser_log}</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${browser_log}</arg>
+</arguments>
+<msg timestamp="20200402 22:45:16.715" level="INFO">{'level': 'WARNING', 'message': 'http://localhost:9001/bundle.js 85:86422 "i18next::backendConnector: No backend was added via i18next.use. Will not load resources."', 'source': 'console-api', 'timestamp': 1585881915810}</msg>
+<status status="PASS" starttime="20200402 22:45:16.715" endtime="20200402 22:45:16.715"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:16.715" endtime="20200402 22:45:16.715"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:16.715" endtime="20200402 22:45:16.715"></status>
+</kw>
+<kw name="${browser_log} = {'level': 'WARNING', 'message': 'http://localhost:9001/bundle.js 85:86422 &quot;i18next::backendConnector: No backend was added via i18next.use. Will not load resources.&quot;', 'source': 'console-api', 'timest..." type="foritem">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'SEVERE' in '''${browser_log}'''</arg>
+<arg>Log</arg>
+<arg>${browser_log}</arg>
+<arg>level=WARN</arg>
+<arg>ELSE</arg>
+<arg>Log</arg>
+<arg>${browser_log}</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${browser_log}</arg>
+</arguments>
+<msg timestamp="20200402 22:45:16.716" level="INFO">{'level': 'WARNING', 'message': 'http://localhost:9001/bundle.js 85:86422 "i18next::backendConnector: No backend was added via i18next.use. Will not load resources."', 'source': 'console-api', 'timestamp': 1585881916069}</msg>
+<status status="PASS" starttime="20200402 22:45:16.716" endtime="20200402 22:45:16.716"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:16.715" endtime="20200402 22:45:16.716"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:16.715" endtime="20200402 22:45:16.716"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:16.714" endtime="20200402 22:45:16.716"></status>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20200402 22:45:16.716" endtime="20200402 22:45:16.775"></status>
+</kw>
+<status status="PASS" starttime="20200402 22:45:16.712" endtime="20200402 22:45:16.775"></status>
+</kw>
+<doc>Application Login</doc>
+<status status="FAIL" starttime="20200402 22:45:13.917" endtime="20200402 22:45:16.775"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1">Critical Tests</stat>
+<stat pass="0" fail="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" id="s1" name="Management">Management</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
