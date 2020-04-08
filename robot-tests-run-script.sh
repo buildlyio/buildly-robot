@@ -2,7 +2,7 @@ cd /robot-tests-volume/src
 
 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://buildly:8080/health_check/)" != "200" ]]; do sleep 5; echo Wait for buildly; done'
 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://productsservice:8080/health_check/)" != "200" ]]; do sleep 5; echo Wait for productservice; done'
-bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://locationservice:8080/health_check/)" != "200" ]]; do sleep 5; echo Wait for locationservice; done'
+#bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://locationservice:8080/health_check/)" != "200" ]]; do sleep 5; echo Wait for locationservice; done'
 
 
 rm -f output-$1/output.xml
