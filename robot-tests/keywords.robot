@@ -2,10 +2,12 @@
 Library    SeleniumLibrary
 Library    ./get_selenium_browser_log.py
 Library    Process
+Library    BuiltIn
 
 *** Variables ***
 @{chrome_arguments}    --disable-infobars    --headless    --disable-gpu   --no-sandbox   --window-size=1920,1080
 ${HEADLESS_BROWSER_ENABLED}     True
+${env}      
 
 *** Keywords ***
 Init
@@ -58,7 +60,8 @@ I am authenticated api user
     Should Be Equal As Strings  ${resp.status_code}  200
 
 Set environment
-    Run Keyword If    '${env}'!=''    Set environment to   ${env}
+    Run Keyword If    '${env}'!=''  Set environment to  ${env}
+    # Run Keyword If    '${env}'=='PASS'    Set environment to    ${env}  
 
 Set environment to
     [Arguments]    ${env}
@@ -68,7 +71,7 @@ Set environment to
     Set Global Variable    ${REGULAR_USER_PASSWORD}          ${REGULAR_USER_PASSWORD_${env}}
     Set Global Variable    ${API_USER_USERNAME}              ${API_USER_USERNAME_${env}}
     Set Global Variable    ${API_USER_PASSWORD}              ${API_USER_PASSWORD_${env}}
-    Set Global Variable    ${BUILDLY_UI_BASE_URL}            ${BUILDLY_UI_BASE_URL_${env}}
+    Set Global Variable    ${BUILDLY_REACT_TEMPLATE_BASE_URL}            ${BUILDLY_REACT_TEMPLATE_BASE_URL_${env}}
     Set Global Variable    ${BUILDLY_BASE_URL}               ${BUILDLY_BASE_URL_${env}}
     Set Global Variable    ${PRODUCT_API_BASE_URL}           ${PRODUCT_API_BASE_URL_${env}}
     Set Global Variable    ${LOCATION_API_BASE_URL}          ${LOCATION_API_BASE_URL_${env}}
