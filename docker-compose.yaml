@@ -148,9 +148,9 @@ services:
         -----END PUBLIC KEY-----
       SECRET_KEY: "oxcdb=mtcc7q1cym@oox(lyrz1ncz-(w+(#&u7l-&)7a8wvxyz"
 
-  buildly-ui:
-    container_name: buildly-ui
-    image: buildly/buildly-ui
+  buildly-react-template:
+    container_name: buildly-react-template
+    image: buildly/buildly-react-template
     ports:
       - "9001:9000"
     depends_on:
@@ -178,3 +178,4 @@ services:
 
 volumes:
   static-content:
+
