@@ -48,7 +48,7 @@ Teardown Actions
         ...    ELSE    Log    ${browser_log}
     END
     Close All Browsers
-
+ 
 I am authenticated api user
     &{params}=   Create Dictionary   grant_type=password     username=${API_USER_USERNAME}     password=${API_USER_PASSWORD}
     &{headers}=   Create Dictionary   Content-type=application/x-www-form-urlencoded

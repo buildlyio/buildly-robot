@@ -12,7 +12,7 @@ browser is opened to Buildly-UI URL
     Log  ${status}
     Run Keyword If    'FAIL' in '''${status}'''    Reload Page
     Run Keyword If    'FAIL' in '''${status}'''    Wait Until Page Contains    Login   10
-
+ 
 a new user is registered
     Click Link    /register
     Wait Until Page Contains    Register    10

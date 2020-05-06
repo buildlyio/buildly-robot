@@ -162,7 +162,7 @@ services:
       PRODUCTION: "true"
       API_URL: "http://localhost:8080/"
       OAUTH_TOKEN_URL: "http://localhost:8080/oauth/token/"
-
+ 
   robot_tests:
     build:
       context: .
