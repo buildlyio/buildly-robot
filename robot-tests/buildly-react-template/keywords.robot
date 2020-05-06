@@ -3,11 +3,12 @@ Library         SeleniumLibrary
 Library         String
 Library         RequestsLibrary
 Library         Collections
+Library         BuiltIn
 
 *** Keywords ***
 ##### AUTHENTIFICATION #####
-browser is opened to Buildly-UI URL
-    Go To    ${BUILDLY_UI_BASE_URL}
+browser is opened to Buildly-React-Template URL
+    Go To    ${BUILDLY_REACT_TEMPLATE_BASE_URL}
     ${status}=    Run Keyword And Ignore Error    Wait Until Page Contains    Login   10
     Log  ${status}
     Run Keyword If    'FAIL' in '''${status}'''    Reload Page
@@ -28,11 +29,14 @@ a new user is registered
     Input Text    //input[@placeholder='Enter last name']    Robot
     Click Button    Register
 
-the user can login
-    Go To    ${BUILDLY_UI_BASE_URL}
+the user can login 
+    Go To    ${BUILDLY_REACT_TEMPLATE_BASE_URL}
     Wait Until Page Contains    Login   10
     Location Should Contain    login
     Input Text    //input[@placeholder='Enter username']    ${NEW_USER_NAME}
     Input Text    //input[@placeholder='Enter password']    ${NEW_USER_PASSWORD}
     Click Button    Login
     Wait Until Page Contains    My App    10
+
+
+
