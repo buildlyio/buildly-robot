@@ -22,4 +22,3 @@ ${BUILDLY_REACT_TEMPLATE_BASE_URL_docker}            http://buildly-react-templa
 ${BUILDLY_BASE_URL_docker}               http://buildly:8080
 ${PRODUCT_API_BASE_URL_docker}           ${BUILDLY_BASE_URL_docker}/products
 ${LOCATION_API_BASE_URL_docker}          ${BUILDLY_BASE_URL_docker}/locations
-

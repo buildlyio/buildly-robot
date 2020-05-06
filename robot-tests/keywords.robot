@@ -71,11 +71,15 @@ Set environment to
     Set Global Variable    ${REGULAR_USER_PASSWORD}          ${REGULAR_USER_PASSWORD_${env}}
     Set Global Variable    ${API_USER_USERNAME}              ${API_USER_USERNAME_${env}}
     Set Global Variable    ${API_USER_PASSWORD}              ${API_USER_PASSWORD_${env}}
+<<<<<<< HEAD
     Set Global Variable    ${BUILDLY_REACT_TEMPLATE_BASE_URL}              ${BUILDLY_REACT_TEMPLATE_BASE_URL_${env}}
+=======
+    Set Global Variable    ${BUILDLY_REACT_TEMPLATE_BASE_URL}             ${BUILDLY_REACT_TEMPLATE_BASE_URL_${env}}
+>>>>>>> replace-buildly-ui
     Set Global Variable    ${BUILDLY_BASE_URL}               ${BUILDLY_BASE_URL_${env}}
     Set Global Variable    ${PRODUCT_API_BASE_URL}           ${PRODUCT_API_BASE_URL_${env}}
     Set Global Variable    ${LOCATION_API_BASE_URL}          ${LOCATION_API_BASE_URL_${env}}
 
 Generate Random Name
-    ${name}=  Generate Random String  8  	[LOWER]
+    ${name}=  Generate Random String  8  	[LOWER] 
     [RETURN]    ${name}

@@ -3,6 +3,7 @@ Library         SeleniumLibrary
 Library         String
 Library         RequestsLibrary
 Library         Collections
+Library         BuiltIn
 
 *** Keywords ***
 ##### AUTHENTIFICATION #####
@@ -28,10 +29,15 @@ a new user is registered
     Input Text    //input[@placeholder='Enter last name']    Robot
     Click Button    Register
 
+<<<<<<< HEAD:robot-tests/buildly-react-template/keywords.robot
 
 #### Verify the User management section ####
 a new user can login as an admin
     Go To   ${BUILDLY_REACT_TEMPLATE_BASE_URL}
+=======
+the user can login 
+    Go To    ${BUILDLY_REACT_TEMPLATE_BASE_URL}
+>>>>>>> replace-buildly-ui:robot-tests/buildly-ui/keywords.robot
     Wait Until Page Contains    Login   10
     Location Should Contain     login
     Set Global Variable    ${NEW_USER_NAME}    admin
@@ -40,6 +46,7 @@ a new user can login as an admin
     Input Text    //input[@placeholder='Enter password']    ${NEW_USER_PASSWORD}
     Click Button    Login
     Wait Until Page Contains    My App    10
+<<<<<<< HEAD:robot-tests/buildly-react-template/keywords.robot
     Wait Until Page Contains    Profile   20
     Click Button    //button[@id='profile/users/current-users']
 
@@ -55,3 +62,8 @@ the user can manage current users section
     Element Text Should Be  //*[@id="root"]/div/div/div/div[2]/div[2]/div/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[1]/div/div/div/h4  Admins
     Element Text Should Be  //*[@id="root"]/div/div/div/div[2]/div[2]/div/div[1]/div[3]/div/div[2]/div[2]/div[2]/div[1]/div/div/div/h4  Global Admin
     Click Button  //button[.='Create a group']
+=======
+
+
+
+>>>>>>> replace-buildly-ui:robot-tests/buildly-ui/keywords.robot
