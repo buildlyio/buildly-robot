@@ -5,7 +5,6 @@ Library         RequestsLibrary
 Library         Collections
 Library         BuiltIn
 
-
 *** Keywords ***
 ##### AUTHENTIFICATION #####
 browser is opened to Buildly-React-Template URL

@@ -11,6 +11,6 @@ Documentation   Application Login
 Register new user
     GIVEN browser is opened to Buildly-React-Template url 
     WHEN a new user is registered
-    THEN the user can login 
+    THEN the user can login
 
 
