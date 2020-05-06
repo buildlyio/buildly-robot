@@ -6,7 +6,7 @@ ${API_USER_USERNAME}              admin
 ${API_USER_PASSWORD}              admin
 ${REGULAR_USER_USERNAME}          admin
 ${REGULAR_USER_PASSWORD}          admin
-${BUILDLY_REACT_TEMPLATE_BASE_URL}                  http://localhost:9001
+${BUILDLY_REACT_TEMPLATE_BASE_URL}          http://localhost:9001
 ${BUILDLY_BASE_URL}               http://localhost:8080
 ${PRODUCT_API_BASE_URL}           ${BUILDLY_BASE_URL}/products
 ${LOCATION_API_BASE_URL}          ${BUILDLY_BASE_URL}/locations
