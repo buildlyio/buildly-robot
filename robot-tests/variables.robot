@@ -18,7 +18,7 @@ ${API_USER_USERNAME_docker}              admin
 ${API_USER_PASSWORD_docker}              admin
 ${REGULAR_USER_USERNAME_docker}          admin
 ${REGULAR_USER_PASSWORD_docker}          admin
-${BUILDLY_REACT_TEMPLATE_BASE_URL_docker}            http://buildly-react-template:9000
+${BUILDLY_REACT_TEMPLATE_BASE_URL_docker}            http://buildly-react-template:9000 
 ${BUILDLY_BASE_URL_docker}               http://buildly:8080
 ${PRODUCT_API_BASE_URL_docker}           ${BUILDLY_BASE_URL_docker}/products
 ${LOCATION_API_BASE_URL_docker}          ${BUILDLY_BASE_URL_docker}/locations

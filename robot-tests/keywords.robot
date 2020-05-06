@@ -77,5 +77,5 @@ Set environment to
     Set Global Variable    ${LOCATION_API_BASE_URL}          ${LOCATION_API_BASE_URL_${env}}
 
 Generate Random Name
-    ${name}=  Generate Random String  8  	[LOWER]
+    ${name}=  Generate Random String  8  	[LOWER] 
     [RETURN]    ${name}
