@@ -148,13 +148,8 @@ services:
         -----END PUBLIC KEY-----
       SECRET_KEY: "oxcdb=mtcc7q1cym@oox(lyrz1ncz-(w+(#&u7l-&)7a8wvxyz"
 
-<<<<<<< HEAD
   buildly-react-template:
     container_name: buildly-react-template 
-=======
-  buildly-react-template: 
-    container_name: buildly-react-template
->>>>>>> replace-buildly-ui
     image: buildly/buildly-react-template
     ports:
       - "9001:9000"
