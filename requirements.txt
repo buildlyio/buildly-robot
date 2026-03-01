@@ -1,4 +1,4 @@
-awscli==1.16.230
+awscli==1.44.38
 beautifulsoup4==4.7.1
 boto3==1.9.220
 mailosaur==5.0.6
